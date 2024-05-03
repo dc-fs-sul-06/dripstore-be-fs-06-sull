@@ -1,17 +1,19 @@
-export function getUsers() {
-  const users = [
-    { id: 1, name: "João" },
-    { id: 2, name: "Maria" },
-    { id: 3, name: "José" },
-  ];
+import { PrismaClient } from "@prisma/client";
 
-  return users;
+const prisma = new PrismaClient();
+
+export async function getUsers() {
+  const userList = await prisma.user.findMany();
+  return userList;
 }
 
-export function createUser(userData) {
-  const users = getUsers();
-  const newUser = { id: users.length + 1, ...userData };
-  users.push(newUser);
+export async function createUser(userData) {
+  const newUser = await prisma.user.create({
+    data: {
+      cpf: userData.cpf,
+      name: userData.name,
+    },
+  });
 
   return newUser;
 }
