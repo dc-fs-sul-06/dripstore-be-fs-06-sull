@@ -1,4 +1,4 @@
-import { createUser, getUsers } from "@/pages/libs/models/users";
+import { createUser, getUsers } from "@/pages/libs/controllers/users";
 
 export default async function handler(req, res) {
   const method = req.method;
