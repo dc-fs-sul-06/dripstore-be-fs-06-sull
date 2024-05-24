@@ -2,8 +2,10 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function getAddress() {
-  const addressList = await prisma.address.findMany();
+export async function getUserAddresses(userId) {
+  const addressList = await prisma.address.findMany({
+    where: { userId: parseInt(userId) },
+  });
   return addressList;
 }
 
@@ -14,12 +16,14 @@ export async function getAddressById(id) {
   return address;
 }
 
-export async function createAddress(addressData) {
-  const address = await prisma.address.create({ data: {
-    street: addressData.street,
-    number: addressData.number,
-    
-  } });
+export async function createAddress(userId, addressData) {
+  const address = await prisma.address.create({
+    data: {
+      street: addressData.street,
+      number: addressData.number,
+      userId: parseInt(userId),
+    },
+  });
   return address;
 }
 
@@ -32,4 +36,11 @@ export async function updateAddress(id, addressData) {
     },
   });
   return addressList;
+}
+
+export async function deleteAddress(id) {
+  const deletedAddress = await prisma.address.delete({
+    where: { id: parseInt(id) },
+  });
+  return deletedAddress;
 }

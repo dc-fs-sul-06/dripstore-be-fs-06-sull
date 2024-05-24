@@ -6,7 +6,7 @@ export async function getUsers() {
   const userList = await prisma.user.findMany({
     include: {
       adresses: true,
-      cart: true
+      cart: true,
     },
   });
   return userList;
@@ -23,7 +23,7 @@ export async function createUser(userData) {
           number: userData.address.number,
         },
       },
-      cart: {create: {}}
+      cart: { create: {} },
     },
   });
 
@@ -31,7 +31,10 @@ export async function createUser(userData) {
 }
 
 export async function getUserById(id) {
-  const user = await prisma.user.findUnique({ where: { id: parseInt(id) } });
+  const user = await prisma.user.findUnique({
+    where: { id: parseInt(id) },
+    include: { adresses: true, cart: true },
+  });
   return user;
 }
 
@@ -47,6 +50,9 @@ export async function updateUserById(id, userData) {
 }
 
 export function deleteUserById(id) {
-  const deletedUser = prisma.user.delete({ where: { id: parseInt(id) }, include:{adresses: true} });
+  const deletedUser = prisma.user.delete({
+    where: { id: parseInt(id) },
+    include: { adresses: true },
+  });
   return deletedUser;
 }
