@@ -36,7 +36,7 @@ export default async function handler(req, res) {
       return;
     }
 
-    res.status(204).send();
+    res.status(204).send("Usuário excluido");
     return;
   }
 }
