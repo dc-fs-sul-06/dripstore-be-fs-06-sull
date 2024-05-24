@@ -1,4 +1,5 @@
 import { deleteUserById, getUserById, updateUserById } from "@/pages/libs/controllers/users";
+import { fullUserSerializer } from "@/pages/libs/serializers/user";
 
 export default async function handler(req, res) {
   const method = req.method;
@@ -11,20 +12,20 @@ export default async function handler(req, res) {
       return;
     }
 
-    res.status(200).json({ data: user });
+    res.status(200).json({ data: fullUserSerializer(user) });
     return;
   }
 
   if (method === "PUT") {
-    const { name } = req.body;
-    const user = await updateUserById(req.query.id, { name });
+    const { name, email, password } = req.body;
+    const user = await updateUserById(req.query.id, { name, email, password });
 
     if (!user) {
       res.status(404).json({ message: "User not found" });
       return;
     }
 
-    res.status(200).json({ data: user });
+    res.status(200).json({ data: fullUserSerializer(user) });
     return;
   }
 

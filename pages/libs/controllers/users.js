@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { userSerializer, fullUserSerializer } from "../serializers/user";
 
 const prisma = new PrismaClient();
 
@@ -30,6 +31,14 @@ export async function createUser(userData) {
   return newUser;
 }
 
+export async function getUserByEmail(email) {
+  const user = await prisma.user.findUnique({
+    where: { email },
+    include: { adresses: true, cart: true },
+  });
+  return user;
+}
+
 export async function getUserById(id) {
   const user = await prisma.user.findUnique({
     where: { id: parseInt(id) },
@@ -43,6 +52,8 @@ export async function updateUserById(id, userData) {
     where: { id: parseInt(id) },
     data: {
       name: userData.name,
+      email: userData.email,
+      password: userData.password,
     },
   });
 

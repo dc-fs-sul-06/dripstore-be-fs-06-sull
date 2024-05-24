@@ -8,51 +8,52 @@ datasource db {
 }
 
 model User {
-  id     Int     @id @default(autoincrement())
-  cpf    String  @unique
-  name   String
+  id       Int       @id @default(autoincrement())
+  cpf      String    @unique
+  name     String
   adresses Address[]
-  cart Cart[]
+  cart     Cart[]
+  email    String?    @unique
+  password String?
 }
 
 model Address {
-  id      Int     @id @default(autoincrement())
-  street  String
-  number  Int
-  user    User @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  userId  Int
+  id     Int    @id @default(autoincrement())
+  street String
+  number Int
+  user   User   @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  userId Int
 }
 
 model Cart {
-  id Int @id @default(autoincrement())
-  user User @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  userId Int
+  id       Int        @id @default(autoincrement())
+  user     User       @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  userId   Int
   lineItem LineItem[]
 }
 
 model Product {
-  id Int @id @default(autoincrement())
-  price Float
-  title String
+  id          Int          @id @default(autoincrement())
+  price       Float
+  title       String
   description String
-  quantity Int
-  lineItem LineItem[]
-  collection Collection[] @relation("ProductCollection")
+  quantity    Int
+  lineItem    LineItem[]
+  collection  Collection[] @relation("ProductCollection")
 }
 
 model LineItem {
-  id Int @id @default(autoincrement())
-  quantity Int 
-  discount Float
-  product Product @relation(fields: [productId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  id        Int     @id @default(autoincrement())
+  quantity  Int
+  discount  Float
+  product   Product @relation(fields: [productId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   productId Int
-  cart Cart @relation(fields: [cartId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  cartId Int
+  cart      Cart    @relation(fields: [cartId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  cartId    Int
 }
 
 model Collection {
-  id Int @id @default(autoincrement())
-  title String @unique
+  id       Int       @id @default(autoincrement())
+  title    String    @unique
   products Product[] @relation("ProductCollection")
 }
-
