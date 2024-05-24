@@ -3,7 +3,12 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export async function getUsers() {
-  const userList = await prisma.user.findMany();
+  const userList = await prisma.user.findMany({
+    include: {
+      adresses: true,
+      cart: true,
+    },
+  });
   return userList;
 }
 
@@ -12,6 +17,13 @@ export async function createUser(userData) {
     data: {
       cpf: userData.cpf,
       name: userData.name,
+      adresses: {
+        create: {
+          street: userData.address.street,
+          number: userData.address.number,
+        },
+      },
+      cart: { create: {} },
     },
   });
 
@@ -19,7 +31,10 @@ export async function createUser(userData) {
 }
 
 export async function getUserById(id) {
-  const user = await prisma.user.findUnique({ where: { id: parseInt(id) } });
+  const user = await prisma.user.findUnique({
+    where: { id: parseInt(id) },
+    include: { adresses: true, cart: true },
+  });
   return user;
 }
 
@@ -35,6 +50,9 @@ export async function updateUserById(id, userData) {
 }
 
 export function deleteUserById(id) {
-  const deletedUser = prisma.user.delete({ where: { id: parseInt(id) } });
+  const deletedUser = prisma.user.delete({
+    where: { id: parseInt(id) },
+    include: { adresses: true },
+  });
   return deletedUser;
 }
