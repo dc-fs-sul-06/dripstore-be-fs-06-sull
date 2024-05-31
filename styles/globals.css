@@ -2,32 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background-color: #cccccc;
+  margin-bottom: 30px !important;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.swiper-pagination-bullet-active {
+  background-color: #c92071;
+}
+
+@media screen and (max-width: 770px) {
+  .swiper.swiper-initialized.swiper-horizontal.swiper-backface-hidden.mySwiper {
+    padding-bottom: 41px;
+    padding-top: 41px;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+@media screen and (min-width: 770px) {
+  .swiper-pagination-bullet {
+    margin-bottom: 53px !important;
+    margin-top: 53px !important;
+  }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .swiper.swiper-initialized.swiper-horizontal.swiper-backface-hidden.mySwiper {
+    padding-bottom: 53px;
   }
 }
