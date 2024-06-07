@@ -24,7 +24,7 @@ export const ProductCard = ({ product, ...rest }) => {
           {product.type}
         </p>
         <p className="text-[#474747] font-medium md:font-normal text-sm md:text-2xl">
-          {product.name}
+          {product.title}
         </p>
         <div className="flex">
           <p className="text-[#1F1F1F] font-normal mr-3 text-base md:text-2xl line-through opacity-30">

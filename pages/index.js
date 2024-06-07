@@ -6,8 +6,9 @@ import { Hero } from "@/components/Hero/Hero";
 import { HighlightsSection } from "@/components/HighlightsSection";
 import { SideBySide } from "@/components/SideBySide/SideBySide";
 import { SmallHighlightSection } from "@/components/SmallHighlightSection/SmallHighlightSection";
+import { getCollectionProducts } from "@/libs/controllers/collections";
 
-export default function Home() {
+export default function Home({ gamerComputerCollectionProducts }) {
   return (
     <div className="h-full min-h-screen w-full flex flex-col">
       <div className="z-40 h-[72px] lg:h-[140px]">
@@ -23,7 +24,7 @@ export default function Home() {
       <div>
         <SmallHighlightSection title={"Coleções em destaque"} />
       </div>
-      <FeaturedProductList title={"Produtos em alta"} link={"Ver todos →"} />
+      <FeaturedProductList title={"Produtos em alta"} link={"Ver todos →"} gamerComputerCollectionProducts={gamerComputerCollectionProducts} />
       <SideBySide
         image={"air-jordan.png"}
         eyebrown={"Oferta especial"}
@@ -38,3 +39,12 @@ export default function Home() {
     </div>
   );
 }
+
+export const getServerSideProps = async () => {
+  const gamerComputerCollectionsId = 1;
+  const gamerComputerCollectionProducts = await getCollectionProducts(
+    gamerComputerCollectionsId
+  );
+
+  return { props: { gamerComputerCollectionProducts } };
+};

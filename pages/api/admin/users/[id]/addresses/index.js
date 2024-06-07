@@ -1,4 +1,4 @@
-import { getUserAddresses, createAddress } from "@/pages/libs/controllers/addresses";
+import { getUserAddresses, createAddress } from "@/libs/controllers/addresses";
 
 
 export default async function handler(req, res) {

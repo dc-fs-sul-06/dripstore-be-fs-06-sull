@@ -1,4 +1,4 @@
-  import { deleteAddress, getAddressById, updateAddress } from "@/pages/libs/controllers/addresses";
+  import { deleteAddress, getAddressById, updateAddress } from "@/libs/controllers/addresses";
 
   export default async function handler(req, res) {
     const method = req.method;

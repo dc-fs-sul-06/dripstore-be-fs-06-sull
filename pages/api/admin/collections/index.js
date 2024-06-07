@@ -1,4 +1,4 @@
-import { createCollection, getAllCollections } from "@/pages/libs/controllers/collections";
+import { createCollection, getAllCollections } from "@/libs/controllers/collections";
 
 export default async function Handler(req, res){
   const method = req.method;

@@ -1,4 +1,4 @@
-import { getCollectionById, updateCollection } from "@/pages/libs/controllers/collections";
+import { getCollectionById, updateCollection } from "@/libs/controllers/collections";
 
 export default async function Handler(req, res){
   const method = req.method;

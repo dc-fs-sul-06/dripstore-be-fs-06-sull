@@ -1,4 +1,4 @@
-import { parseJwt, verifyAccessToken } from "@/pages/libs/utils/jwt";
+import { parseJwt, verifyAccessToken } from "@/libs/utils/jwt";
 import { getUserById } from "../controllers/users";
 
 export const authenticateUser = async (token) => {

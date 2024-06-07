@@ -1,4 +1,4 @@
-import { deleteProduct, getProductById, updateProduct } from "@/pages/libs/controllers/products";
+import { deleteProduct, getProductById, updateProduct } from "@/libs/controllers/products";
 
 export default async function Handler(req, res) {
   const method = req.method;

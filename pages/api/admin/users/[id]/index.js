@@ -1,5 +1,5 @@
-import { deleteUserById, getUserById, updateUserById } from "@/pages/libs/controllers/users";
-import { fullUserSerializer } from "@/pages/libs/serializers/user";
+import { deleteUserById, getUserById, updateUserById } from "@/libs/controllers/users";
+import { fullUserSerializer } from "@/libs/serializers/user";
 
 export default async function handler(req, res) {
   const method = req.method;

@@ -1,4 +1,4 @@
-import { authenticateUser } from "@/pages/libs/controllers/login";
+import { authenticateUser } from "@/libs/controllers/login";
 import { generateJWTToken } from "../libs/utils/jwt";
 
 export default async function handler(req, res) {

@@ -1,4 +1,4 @@
-import { getUserByEmail } from "@/pages/libs/controllers/users";
+import { getUserByEmail } from "@/libs/controllers/users";
 import { userSerializer } from "../serializers/user";
 import { generateJWTToken } from "../utils/jwt";
 

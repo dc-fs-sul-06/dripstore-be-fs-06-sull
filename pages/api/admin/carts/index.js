@@ -1,4 +1,4 @@
-import { createCart, getCarts } from "@/pages/libs/controllers/carts";
+import { createCart, getCarts } from "@/libs/controllers/carts";
 
 export default async function Handler(req, res){
   const method = req.method;

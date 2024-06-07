@@ -1,5 +1,5 @@
-import { createUser, getUsers } from "@/pages/libs/controllers/users";
-import { fullUserSerializer } from "@/pages/libs/serializers/user";
+import { createUser, getUsers } from "@/libs/controllers/users";
+import { fullUserSerializer } from "@/libs/serializers/user";
 
 export default async function handler(req, res) {
   const method = req.method;

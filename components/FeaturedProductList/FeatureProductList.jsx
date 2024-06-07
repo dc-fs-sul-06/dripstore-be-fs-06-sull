@@ -2,26 +2,12 @@ import { ProductCard } from "./ProductCard.jsx";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-export const FeaturedProductList = ({ title, link }) => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const url = new URL(
-        "https://6597ee73668d248edf23ba81.mockapi.io/Product"
-      );
-      const res = await fetch(url);
-      const products = await res.json();
-      console.log(products);
-      if (products === "Not found") {
-        setProducts([]);
-      } else {
-        setProducts(products);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+export const FeaturedProductList = ({
+  title,
+  link,
+  gamerComputerCollectionProducts,
+}) => {
+  const products = gamerComputerCollectionProducts;
 
   return (
     <div className="text-Inter px-5 md:px-[100px] bg-gray-50 md:bg-purple-50 md:pb-[120px] pb-10">
