@@ -57,6 +57,7 @@ model Collection {
   id       Int       @id @default(autoincrement())
   title    String    @unique
   products Product[] @relation("ProductCollection")
+  isHighLightedCollection Boolean @default(false)
 }
 
 model ProductImage {
@@ -75,3 +76,5 @@ model HeroSlide {
   title String?
   subtitle String?
 }
+
+

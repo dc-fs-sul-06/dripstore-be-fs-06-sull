@@ -80,3 +80,12 @@ export async function getCollectionProducts(collectionId) {
   });
   return collection.products;
 }
+export async function getAllHighllightedCollection() {
+  const collections = await prisma.collection.findMany({
+    where:{
+      isHighLightedCollection: true
+    },
+    include: { products: true },
+  });
+  return collections;
+}

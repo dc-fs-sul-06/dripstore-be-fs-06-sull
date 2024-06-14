@@ -6,23 +6,25 @@ import { Hero } from "@/components/Hero/Hero";
 import { HighlightsSection } from "@/components/HighlightsSection";
 import { SideBySide } from "@/components/SideBySide/SideBySide";
 import { SmallHighlightSection } from "@/components/SmallHighlightSection/SmallHighlightSection";
-import { getCollectionProducts } from "@/libs/controllers/collections";
+import { getAllHighllightedCollection, getCollectionProducts } from "@/libs/controllers/collections";
+import { getAllHeroSlides } from "@/libs/controllers/heroSlides";
 
-export default function Home({ gamerComputerCollectionProducts }) {
-  return (
+export default function Home({ gamerComputerCollectionProducts, heroSlides, highLightedColleciton }) {
+  console.log(heroSlides)
+  return ( 
     <div className="h-full min-h-screen w-full flex flex-col">
       <div className="z-40 h-[72px] lg:h-[140px]">
         <Header />
         <BurgerMenu />
       </div>
       <div className="bg-[#F5F5F5]">
-        <Hero />
+        <Hero heroSlides = {heroSlides} />
       </div>
       <div>
         <HighlightsSection />
       </div>
       <div>
-        <SmallHighlightSection title={"Coleções em destaque"} />
+        <SmallHighlightSection title={"Coleções em destaque"} highLightedColleciton={highLightedColleciton} />
       </div>
       <FeaturedProductList title={"Produtos em alta"} link={"Ver todos →"} gamerComputerCollectionProducts={gamerComputerCollectionProducts} />
       <SideBySide
@@ -46,5 +48,8 @@ export const getServerSideProps = async () => {
     gamerComputerCollectionsId
   );
 
-  return { props: { gamerComputerCollectionProducts } };
+  const heroSlides = await getAllHeroSlides()
+  const highLightedColleciton = await getAllHighllightedCollection()
+
+  return { props: { gamerComputerCollectionProducts, heroSlides, highLightedColleciton } };
 };
