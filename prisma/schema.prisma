@@ -65,3 +65,13 @@ model ProductImage {
   productId Int
   product   Product @relation(fields: [productId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 }
+
+model HeroSlide {
+  id Int @id @default(autoincrement())
+  ctaUrl String?
+  ctaText String? 
+  imageUrl String?
+  eyebrow String?
+  title String?
+  subtitle String?
+}

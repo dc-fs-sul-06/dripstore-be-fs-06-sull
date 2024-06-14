@@ -12,9 +12,6 @@ export default async function Handler(req, res){
   if(method === 'POST'){
     const product = req.body;
     const newProduct = await createProduct(product)
-    if(!newProduct){
-      return res.status(404).json({data: "Not found"});
-    }
     return res.status(200).json({data: product});
   }
 }
