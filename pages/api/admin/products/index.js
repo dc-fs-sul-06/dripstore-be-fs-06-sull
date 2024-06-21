@@ -12,6 +12,9 @@ export default async function Handler(req, res){
   if(method === 'POST'){
     const product = req.body;
     const newProduct = await createProduct(product)
-    return res.status(200).json({data: product});
+    if (newProduct.error) {
+      return res.status(newProduct.error.code).json(newProduct.error);
+    }
+    return res.status(200).json({data: newProduct});
   }
 }

@@ -18,6 +18,8 @@ export async function createUser(userData) {
     data: {
       cpf: userData.cpf,
       name: userData.name,
+      password: userData.password,
+      email: userData.email,
       adresses: {
         create: {
           street: userData.address.street,

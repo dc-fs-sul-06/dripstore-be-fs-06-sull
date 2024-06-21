@@ -1,5 +1,6 @@
 import { authenticateUser } from "@/libs/controllers/login";
-import { generateJWTToken } from "../libs/utils/jwt";
+import { generateJWTToken } from "@/libs/utils/jwt";
+
 
 export default async function handler(req, res) {
   const method = req.method;

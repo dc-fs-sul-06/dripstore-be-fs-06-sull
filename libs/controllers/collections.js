@@ -1,33 +1,35 @@
 import { PrismaClient } from "@prisma/client";
+import { fetcherGuard } from "../utils/dataHandlers";
 
 const prisma = new PrismaClient();
 
-export async function getAllCollections() {
+export const getAllCollections = fetcherGuard(async () => {
   const collections = await prisma.collection.findMany({
     include: { products: true },
   });
   return collections;
-}
+});
 
-export async function getCollectionById(id) {
+export const getCollectionById = fetcherGuard(async (id) => {
   const collection = await prisma.collection.findUnique({
     where: { id: parseInt(id) },
     include: { products: true },
   });
   return collection;
-}
+})
 
-export async function createCollection(collectionData) {
+export const createCollection = fetcherGuard(async (collectionData) => {
   const collection = await prisma.collection.create({
     data: {
       title: collectionData.title,
       products: { create: [] },
     },
   });
-  return collection;
-}
 
-export async function updateCollection(id, collectionData) {
+  return collection;
+});
+
+export const updateCollection = fetcherGuard(async (id, collectionData) => {
   const collection = await prisma.collection.update({
     where: { id: parseInt(id) },
     data: {
@@ -36,16 +38,16 @@ export async function updateCollection(id, collectionData) {
     },
   });
   return collection;
-}
+});
 
-export async function deleteCollection(id) {
+export const deleteCollection = fetcherGuard(async (id) => {
   const collection = await prisma.collection.delete({
     where: { id: parseInt(id) },
   });
   return collection;
-}
+});
 
-export async function addProductsToCollection(collectionId, productIds) {
+export const addProductsToCollection = fetcherGuard(async (collectionId, productIds) => {
   const collection = await prisma.collection.update({
     where: { id: parseInt(collectionId) },
     data: {
@@ -57,9 +59,9 @@ export async function addProductsToCollection(collectionId, productIds) {
     },
   });
   return collection;
-}
+})
 
-export async function removeProductsFromCollection(collectionId, productIds) {
+export const removeProductsFromCollection = fetcherGuard(async (collectionId, productIds) => {
   const collection = await prisma.collection.update({
     where: { id: parseInt(collectionId) },
     data: {
@@ -71,16 +73,16 @@ export async function removeProductsFromCollection(collectionId, productIds) {
     },
   });
   return collection;
-}
+})
 
-export async function getCollectionProducts(collectionId) {
+export const getCollectionProducts = fetcherGuard(async (collectionId) => {
   const collection = await prisma.collection.findUnique({
     where: { id: parseInt(collectionId) },
     include: { products: true },
   });
   return collection.products;
-}
-export async function getAllHighllightedCollection() {
+})
+export const getAllHighllightedCollection = fetcherGuard(async () => {
   const collections = await prisma.collection.findMany({
     where:{
       isHighLightedCollection: true
@@ -88,4 +90,4 @@ export async function getAllHighllightedCollection() {
     include: { products: true },
   });
   return collections;
-}
+})

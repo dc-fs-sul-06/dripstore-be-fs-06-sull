@@ -7,7 +7,7 @@ export async function getAllHeroSlides() {
   return slides;
 }
 
-export async function createHeroSlide(slide) {
+export const createHeroSlide = fetcherGuard(async (slide) => {
   const createdSlide = await prisma.HeroSlide.create({
     data: {
       ctaUrl: slide.ctaUrl,
@@ -19,7 +19,7 @@ export async function createHeroSlide(slide) {
     },
   });
   return createdSlide;
-}
+});
 
 export async function updateHeroSlide(slide, slideId) {
   const updatedSlide = await prisma.HeroSlide.updade({
