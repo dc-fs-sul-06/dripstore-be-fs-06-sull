@@ -1,11 +1,12 @@
 import { PrismaClient } from "@prisma/client";
+import { fetcherGuard } from "../utils/dataHandlers";
 
 const prisma = new PrismaClient();
 
-export async function getAllHeroSlides() {
+export const getAllHeroSlides = fetcherGuard(async () => {
   const slides = await prisma.HeroSlide.findMany();
   return slides;
-}
+})
 
 export const createHeroSlide = fetcherGuard(async (slide) => {
   const createdSlide = await prisma.HeroSlide.create({
@@ -21,7 +22,7 @@ export const createHeroSlide = fetcherGuard(async (slide) => {
   return createdSlide;
 });
 
-export async function updateHeroSlide(slide, slideId) {
+export const updateHeroSlide = fetcherGuard(async (slide, slideId) => {
   const updatedSlide = await prisma.HeroSlide.updade({
     where: { id: slideId },
     data: {
@@ -34,11 +35,11 @@ export async function updateHeroSlide(slide, slideId) {
     },
   });
   return updatedSlide;
-}
+})
 
-export async function deleteHeroSlide(slideId) {
+export const deleteHeroSlide = fetcherGuard(async (slideId) => {
   const deletedSlide = await prisma.HeroSlide.delete({
     where: { id: slideId },
   });
   return deletedSlide;
-}
+})

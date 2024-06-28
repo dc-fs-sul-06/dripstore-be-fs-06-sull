@@ -7,6 +7,13 @@ export default async function handle(req, res) {
   const method = req.method;
   const { id } = req.query;
 
+  let verifications = verifyAllowedMethods(req, ['GET', 'PUT', 'DELETE']);
+
+  if (verifications.errors && verifications.errors.length) {
+    const primaryError = verifications.errors[0];
+    return res.status(primaryError.status).json(primaryError.payload);
+  }
+
   if (method === "PUT") {
     const body = req.body;
     const response = await updateHeroSlide(body, id);

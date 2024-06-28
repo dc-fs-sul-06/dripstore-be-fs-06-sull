@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { userSerializer, fullUserSerializer } from "../serializers/user";
+import { fetcherGuard } from "../utils/dataHandlers";
 
 const prisma = new PrismaClient();
 
-export async function getUsers() {
+export const getUsers = fetcherGuard(async () => {
   const userList = await prisma.user.findMany({
     include: {
       adresses: true,
@@ -11,9 +12,9 @@ export async function getUsers() {
     },
   });
   return userList;
-}
+});
 
-export async function createUser(userData) {
+export const createUser = fetcherGuard(async (userData) => {
   const newUser = await prisma.user.create({
     data: {
       cpf: userData.cpf,
@@ -31,25 +32,24 @@ export async function createUser(userData) {
   });
 
   return newUser;
-}
-
-export async function getUserByEmail(email) {
+});
+export const getUserByEmail = fetcherGuard(async (email) => {
   const user = await prisma.user.findUnique({
     where: { email },
     include: { adresses: true, cart: true },
   });
   return user;
-}
+});
 
-export async function getUserById(id) {
+export const getUserById = fetcherGuard(async (id) => {
   const user = await prisma.user.findUnique({
     where: { id: parseInt(id) },
     include: { adresses: true, cart: true },
   });
   return user;
-}
+});
 
-export async function updateUserById(id, userData) {
+export const updateUserById = fetcherGuard(async (id, userData) => {
   const user = await prisma.user.update({
     where: { id: parseInt(id) },
     data: {
@@ -60,12 +60,12 @@ export async function updateUserById(id, userData) {
   });
 
   return user;
-}
+});
 
-export function deleteUserById(id) {
-  const deletedUser = prisma.user.delete({
+export const deleteUserById = fetcherGuard(async (id) => {
+  const deletedUser = await prisma.user.delete({
     where: { id: parseInt(id) },
     include: { adresses: true },
   });
   return deletedUser;
-}
+});

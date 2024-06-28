@@ -3,20 +3,20 @@ import { FetcherValidationError, fetcherGuard } from "../utils/dataHandlers";
 
 const prisma = new PrismaClient();
 
-export async function getAllProducts() {
+export const getAllProducts = fetcherGuard(async () => {
   const products = await prisma.product.findMany({
     include: { collection: true },
   });
   return products;
-}
+})
 
-export async function getProductById(id) {
+export const getProductById = fetcherGuard(async (id) => {
   const product = await prisma.product.findUnique({
     where: { id: parseInt(id) },
     include: { collection: true },
   });
   return product;
-}
+})
 
 export const createProduct = fetcherGuard(async (productData) => {
   if (productData.collection && !Array.isArray(productData.collection)) {
@@ -42,7 +42,7 @@ export const createProduct = fetcherGuard(async (productData) => {
   return product;
 })
 
-export async function updateProduct(id, productData) {
+export const updateProduct = fetcherGuard( async(id, productData) => {
   const product = await prisma.product.update({
     where: { id: parseInt(id) },
     data: {
@@ -56,12 +56,12 @@ export async function updateProduct(id, productData) {
     include: { collection: true }
   });
   return product;
-}
+})
 
-export async function deleteProduct(id) {
+export const deleteProduct = fetcherGuard(async (id) => {
   const product = await prisma.product.delete({
     where: { id: parseInt(id) },
   });
   return product;
-}
+})
 

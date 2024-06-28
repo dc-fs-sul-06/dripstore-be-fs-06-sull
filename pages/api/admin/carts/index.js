@@ -1,6 +1,13 @@
 import { createCart, getCarts } from "@/libs/controllers/carts";
 
 export default async function Handler(req, res){
+  let verifications = verifyAllowedMethods(req, ['GET', 'POST']);
+  
+  if (verifications.errors && verifications.errors.length) {
+    const primaryError = verifications.errors[0];
+    return res.status(primaryError.status).json(primaryError.payload);
+  }
+
   const method = req.method;
   if(method === "GET"){
     const carts = await getCarts()

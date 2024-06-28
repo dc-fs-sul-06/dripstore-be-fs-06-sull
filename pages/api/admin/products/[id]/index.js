@@ -4,6 +4,13 @@ export default async function Handler(req, res) {
   const method = req.method;
   const id = req.query.id;
 
+  let verifications = verifyAllowedMethods(req, ['GET', 'PUT', 'DELETE']);
+
+  if (verifications.errors && verifications.errors.length) {
+    const primaryError = verifications.errors[0];
+    return res.status(primaryError.status).json(primaryError.payload);
+  }
+
   if (method === "GET") {
     const product = await getProductById(id);
     if (!product) {

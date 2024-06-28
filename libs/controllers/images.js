@@ -1,15 +1,16 @@
 import { PrismaClient } from "@prisma/client";
+import { fetcherGuard } from "../utils/dataHandlers";
 
 const prisma = new PrismaClient();
 
-export async function getImagesByProductId(id) {
+export const getImagesByProductId = fetcherGuard(async (id) => {
   const imageList = await prisma.productImage.findMany({
     where: { productId: parseInt(id) },
   });
   return imageList;
-}
+})
 
-export async function createImage(imageData) {
+export const createImage = fetcherGuard(async (imageData) => {
   const image = await prisma.productImage.create({
     data: {
       url: imageData.url,
@@ -17,11 +18,11 @@ export async function createImage(imageData) {
     },
   });
   return image;
-}
+})
 
-export async function deleteImage(id) {
+export const deleteImage = fetcherGuard(async (id) => {
   const image = await prisma.productImage.delete({
     where: { id: parseInt(id) },
   });
   return image;
-}
+})

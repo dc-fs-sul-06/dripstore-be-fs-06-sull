@@ -2,6 +2,15 @@ import { createProduct, getAllProducts } from "@/libs/controllers/products";
 
 export default async function Handler(req, res){
   const method = req.method;
+
+  let verifications = verifyAllowedMethods(req, ['GET', 'POST']);
+  verifications = await verifyAuthentication(req, verifications);
+
+  if (verifications.errors && verifications.errors.length) {
+    const primaryError = verifications.errors[0];
+    return res.status(primaryError.status).json(primaryError.payload);
+  }
+
   if(method === 'GET'){
     const products = await getAllProducts();
     if(!products){

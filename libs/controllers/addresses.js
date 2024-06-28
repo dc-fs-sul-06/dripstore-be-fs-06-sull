@@ -1,22 +1,23 @@
 import { PrismaClient } from "@prisma/client";
+import { fetcherGuard } from "../utils/dataHandlers";
 
 const prisma = new PrismaClient();
 
-export async function getUserAddresses(userId) {
+export const getUserAddresses = fetcherGuard(async (userId) => {
   const addressList = await prisma.address.findMany({
     where: { userId: parseInt(userId) },
   });
   return addressList;
-}
+})
 
-export async function getAddressById(id) {
+export const getAddressById = fetcherGuard(async (id) => {
   const address = await prisma.address.findUnique({
     where: { id: parseInt(id) },
   });
   return address;
-}
+})
 
-export async function createAddress(userId, addressData) {
+export const createAddress = fetcherGuard(async (userId, addressData) => {
   const address = await prisma.address.create({
     data: {
       street: addressData.street,
@@ -26,8 +27,8 @@ export async function createAddress(userId, addressData) {
   });
   return address;
 }
-
-export async function updateAddress(id, addressData) {
+)
+export const updateAddress = fetcherGuard(async (id, addressData) => {
   const addressList = await prisma.address.update({
     where: { id: parseInt(id) },
     data: {
@@ -36,11 +37,11 @@ export async function updateAddress(id, addressData) {
     },
   });
   return addressList;
-}
+})
 
-export async function deleteAddress(id) {
+export const deleteAddress = fetcherGuard(async (id) => {
   const deletedAddress = await prisma.address.delete({
     where: { id: parseInt(id) },
   });
   return deletedAddress;
-}
+})
