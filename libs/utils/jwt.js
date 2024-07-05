@@ -8,8 +8,8 @@ export const generateJWTToken = (user) => {
   return jwt.sign(payload, secret, options);
 };
 
-export const verifyAccessToken = (token) => {
-  const secret = "secret";
+export const verifyAccessToken = (token, newSecret) => {
+  const secret = newSecret || "secret";
 
   try {
     const decoded = jwt.verify(token, secret);
