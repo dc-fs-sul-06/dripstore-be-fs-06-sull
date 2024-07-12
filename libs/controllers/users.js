@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { userSerializer, fullUserSerializer } from "../serializers/user";
-import { fetcherGuard } from "../utils/dataHandlers";
+import { fetcherGuard, FetcherValidationError } from "../utils/dataHandlers";
+import { validarCPF } from "../utils/cpf";
 
 const prisma = new PrismaClient();
 
@@ -15,19 +16,33 @@ export const getUsers = fetcherGuard(async () => {
 });
 
 export const createUser = fetcherGuard(async (userData) => {
+  const address = userData.address;
+  const addressesPayload = address ? {
+    adresses: {
+      create: {
+        street: address.street,
+        number: address.number,
+      },
+    }
+  } : {};
+
+  var regexEmail = /\S+@\S+\.\S+/;
+  if (!regexEmail.test(userData.email)) {
+    throw new FetcherValidationError('Email not valid')
+  }
+
+  if (!validarCPF(userData.cpf)) {
+    throw new FetcherValidationError('CPF not valid')
+  }
+
   const newUser = await prisma.user.create({
     data: {
       cpf: userData.cpf,
       name: userData.name,
       password: userData.password,
       email: userData.email,
-      adresses: {
-        create: {
-          street: userData.address.street,
-          number: userData.address.number,
-        },
-      },
       cart: { create: {} },
+      ...addressesPayload
     },
   });
 

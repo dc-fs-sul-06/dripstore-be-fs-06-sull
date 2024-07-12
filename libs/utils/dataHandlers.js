@@ -23,7 +23,7 @@ export function fetcherGuard(callback) {
       if (e instanceof FetcherValidationError) {
         return { error: { code: 400, message: e.message } }
       }
-      console.log(e)
+      
       return {
         error: {
           code: 500,

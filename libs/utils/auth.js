@@ -4,8 +4,6 @@ import { getUserById } from "../controllers/users";
 export const authenticateUser = async (token) => {
   const verifiedToken = verifyAccessToken(token);
 
-  console.log(verifiedToken);
-
   if (!verifiedToken.success) {
     return null;
   }

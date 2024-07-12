@@ -5,7 +5,6 @@ describe('JWT functions', () => {
   describe('Generate jwt', async () => {
     test('should return a token', async () => {
       const token = generateJWTToken({ x: 'y' })
-      console.log(token)
       expect(token).toBeTruthy()
     })
     test('Deve verificar se o token foi gerado pelo servidor ', async () => {

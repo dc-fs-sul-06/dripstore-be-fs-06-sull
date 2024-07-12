@@ -10,7 +10,6 @@ import { getAllHighllightedCollection, getCollectionProducts } from "@/libs/cont
 import { getAllHeroSlides } from "@/libs/controllers/heroSlides";
 
 export default function Home({ gamerComputerCollectionProducts, heroSlides, highLightedColleciton }) {
-  console.log(heroSlides)
   return ( 
     <div className="h-full min-h-screen w-full flex flex-col">
       <div className="z-40 h-[72px] lg:h-[140px]">

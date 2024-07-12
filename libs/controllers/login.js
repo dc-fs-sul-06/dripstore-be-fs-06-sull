@@ -5,8 +5,6 @@ import { generateJWTToken } from "../utils/jwt";
 export const authenticateUser = async (email, password) => {
   const user = await getUserByEmail(email);
 
-  console.log(user);
-
   if (!user) {
     return null;
   }

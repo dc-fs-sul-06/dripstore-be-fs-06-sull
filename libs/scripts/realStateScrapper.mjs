@@ -64,13 +64,11 @@ while (myNumberPage) {
         })
     );
 
-    console.log("socorro", myNumberPage);
     bidData = [...bidData, ...currentBidData];
     await page.waitForSelector("#paginacao");
 
     myNumberPage += 1;
 
-    console.log("socorro 2", myNumberPage);
     await page.$$eval(
       "#paginacao a",
       (elements, myNumberPage) => {
@@ -87,9 +85,6 @@ while (myNumberPage) {
     myNumberPage = null;
   }
 }
-
-
-console.log(bidData);
 
 await fs.writeFileSync("leiloes.json", JSON.stringify(bidData));
 
